@@ -134,7 +134,6 @@ const addtoWishlist = asyncHandler(async (req, res) => {
 });
 
 //Total Ratings
-
 const rating = asyncHandler(async (req, res) => {
   const { _id } = req.user;
   const { star, prodId } = req.body;
@@ -153,10 +152,9 @@ const rating = asyncHandler(async (req, res) => {
           $set: { "ratings.$.star": star },
         },
         {
-            new: true
+          new: true,
         }
       );
-      res.json(updateRating);
     } else {
       const rateProduct = await Product.findByIdAndUpdate(
         prodId,
@@ -172,8 +170,21 @@ const rating = asyncHandler(async (req, res) => {
           new: true,
         }
       );
-      res.json(rateProduct);
     }
+    const getAllratings = await Product.findById(prodId);
+    let totalRating = getAllratings.ratings.length;
+    let ratingSum = getAllratings.ratings
+      .map((item) => item.star)
+      .reduce((prev, curr) => prev + curr, 0);
+    let actualRating = Math.round(ratingSum / totalRating);
+    let finalProduct = await Product.findByIdAndUpdate(
+      prodId,
+      {
+        totalRating: actualRating,
+      },
+      { new: true }
+    );
+    res.json(finalProduct)
   } catch (error) {
     throw new Error(error);
   }
