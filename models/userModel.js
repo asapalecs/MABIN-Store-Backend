@@ -38,7 +38,7 @@ var userSchema = new mongoose.Schema({
         default: [],
     },
     address:{
-        type:String,
+        type: String,
     },
     passwordChangedAt:Date,
     passwordResetToken: String,

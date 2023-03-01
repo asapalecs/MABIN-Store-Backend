@@ -197,7 +197,7 @@ const rating = asyncHandler(async (req, res) => {
 const uploadImages = asyncHandler(async (req, res) => {
   const { id } = req.params;
   //validateMongoDbId(id);
-  console.log(req.files);
+  //console.log(req.files);
   try {
     const uploader = (path) => cloudinaryUploadImg(path, "images");
     const urls = [];
@@ -205,7 +205,7 @@ const uploadImages = asyncHandler(async (req, res) => {
     for (const file of files) {
       const { path } = file;
       const newPath = await uploader(path);
-      fs.unlinkSync(`public/images/products/${file.filename}`);
+      //fs.unlinkSync(`public/images/products/${file.filename}`);
      // console.log(newPath);
       urls.push(newPath);
       fs.unlinkSync(path);
@@ -233,3 +233,5 @@ module.exports = {
   rating,
   uploadImages,
 };
+
+//7:01:23

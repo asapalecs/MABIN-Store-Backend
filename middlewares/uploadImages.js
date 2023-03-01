@@ -92,24 +92,23 @@ const blogImgResize = async (req, res, next) => {
 
 
 // Defines an `async` function to resize uploaded browse images.
-const browseImg = async (req, res, next) => {
-    // Checks if there are files to resize, and skips the function if there aren't.
-    if (!req.files) return next();
-    // Resizes and compresses each uploaded image using the `sharp` module.
-    await Promise.all(
-      req.files.map((file) => {
-        req.files.map(async (file) => {
-          await sharp(file.path)
-            .resize(300, 300)
-            .toFormat("jpeg")
-            .jpeg({ quality: 90 })
-            .toFile(`public/images/blogs/${file.filename}`);
-        });
-      })
-    );
-    
-    // Calls the `next` middleware function.
-    next();
-  };
+// const browseImg = async (req, res, next) => {
+//     // Checks if there are files to resize, and skips the function if there aren't.
+//     if (!req.files) return next();
+//     // Resizes and compresses each uploaded image using the `sharp` module.
+//     await Promise.all(
+//       req.files.map((file) => {
+//         req.files.map(async (file) => {
+//           await sharp(file.path)
+//             .resize(300, 300)
+//             .toFormat("jpeg")
+//             .jpeg({ quality: 90 })
+//             .toFile(`public/images/browse/${file.filename}`);
+//         });
+//       })
+//     );
+//   // Calls the `next` middleware function.
+//   next();
+// };
 
-module.exports = { uploadPhoto, productImgResize, blogImgResize, browseImg };
+module.exports = { uploadPhoto, productImgResize, blogImgResize };

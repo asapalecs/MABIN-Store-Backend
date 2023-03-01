@@ -28,6 +28,3 @@ const cloudinaryUploadImg = async (fileToUploads) => {
 };
 
 module.exports =  cloudinaryUploadImg;
-
-
-//7:03:52 
